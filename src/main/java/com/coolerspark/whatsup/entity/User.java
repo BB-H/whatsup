@@ -3,6 +3,9 @@ package com.coolerspark.whatsup.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -20,6 +23,7 @@ public class User extends IdEntity {
 	private Date registerDate;
 	private Date lastSyncDate;
 	private String lastSyncLocation;
+	private Image image;
 
 	@NotBlank
 	public String getName() {
@@ -44,6 +48,16 @@ public class User extends IdEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@OneToOne
+	@JoinColumn(name = "image_id")
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	@NotBlank
@@ -73,7 +87,7 @@ public class User extends IdEntity {
 	public void setLastSyncLocation(String lastSyncLocation) {
 		this.lastSyncLocation = lastSyncLocation;
 	}
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
