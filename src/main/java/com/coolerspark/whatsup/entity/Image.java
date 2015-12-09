@@ -3,6 +3,7 @@ package com.coolerspark.whatsup.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,7 +21,7 @@ public class Image extends IdEntity {
 
 	private Date creationDate;
 
-	private Item item;
+	private long itemId;
 
 	@NotBlank
 	public String getName() {
@@ -49,15 +50,13 @@ public class Image extends IdEntity {
 		this.creationDate = creationDate;
 	}
 
-	// JPA 基于ITEM_ID列的多对一关系定义
-	@ManyToOne
-	@JoinColumn(name = "item_id")
-	public Item getItem() {
-		return item;
+	@NotBlank
+	public long getItemId() {
+		return itemId;
 	}
 
-	public void setItem(Item item) {
-		this.item = item;
+	public void setItemId(long itemId) {
+		this.itemId = itemId;
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class ItemService {
 	 */
 	private Specification<Item> buildSpecification(Long userId, Map<String, Object> searchParams) {
 		Map<String, SearchFilter> filters = SearchFilter.parse(searchParams);
-		filters.put("user.id", new SearchFilter("user.id", Operator.EQ, userId));
+		filters.put("userId", new SearchFilter("userId", Operator.EQ, userId));
 		Specification<Item> spec = DynamicSpecifications.bySearchFilter(filters.values(), Item.class);
 		return spec;
 	}

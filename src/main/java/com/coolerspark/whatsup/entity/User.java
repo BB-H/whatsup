@@ -23,7 +23,7 @@ public class User extends IdEntity {
 	private Date registerDate;
 	private Date lastSyncDate;
 	private String lastSyncLocation;
-	private Image image;
+	//private Image image;
 
 	@NotBlank
 	public String getName() {
@@ -48,16 +48,6 @@ public class User extends IdEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@OneToOne
-	@JoinColumn(name = "image_id")
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	@NotBlank

@@ -13,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springside.modules.web.MediaTypes;
 
+import com.coolerspark.whatsup.entity.Image;
 import com.coolerspark.whatsup.entity.Item;
+import com.coolerspark.whatsup.service.item.ImageService;
 import com.coolerspark.whatsup.service.item.ItemService;
 
 @RestController
-@RequestMapping(value = "/api/v1/item")
+@RequestMapping(value = "/api/item")
 public class ItemRestController {
 	
 	private static Logger logger = LoggerFactory.getLogger(ItemRestController.class);
 
 	@Autowired
 	private ItemService itemService ;
+	
+	@Autowired
+	private ImageService imageService;
 
 	@Autowired
 	private Validator validator;
@@ -36,7 +41,12 @@ public class ItemRestController {
 	
 	@RequestMapping(value = "/instances",method = RequestMethod.GET, produces = MediaTypes.JSON_UTF_8)
 	public List<Item> listMyItems(Long uid) {
-		return itemService.getAllMyItems(uid);
+		List<Item> items = itemService.getAllMyItems(uid);
+		for (Item item : items) {
+			List<Image> images = imageService.getImagesByItem(item.getId());
+			item.setImages(images);
+		}
+		return items;
 	}
 
 }
